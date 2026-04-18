@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razy Shafa Pratama - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff, #0066cc);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00d4ff, #0066cc);
+        }
+
+        .glassmorphism {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .glassmorphism-light {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #00d4ff, #0066cc);
+            z-index: -1;
+            border-radius: 12px;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .nav-active {
+            color: #00d4ff;
+            border-bottom: 2px solid #00d4ff;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+            margin-top: 5px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 6px;
+            top: 20px;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(180deg, #00d4ff, #0066cc);
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #00d4ff, #0066cc);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gradient:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
+        }
+
+        .text-reveal {
+            overflow: hidden;
+        }
+
+        .text-reveal span {
+            display: inline-block;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-slate-100 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="glassmorphism rounded-full px-6 py-3 flex justify-between items-center">
+                <div class="text-2xl font-bold gradient-text">RSP</div>
+                <div class="hidden md:flex gap-8">
+                    <a href="#home" class="nav-link transition-all duration-300 hover:text-cyan-400">Home</a>
+                    <a href="#about" class="nav-link transition-all duration-300 hover:text-cyan-400">Tentang</a>
+                    <a href="#education" class="nav-link transition-all duration-300 hover:text-cyan-400">Pendidikan</a>
+                    <a href="#projects" class="nav-link transition-all duration-300 hover:text-cyan-400">Proyek</a>
+                    <a href="#contact" class="nav-link transition-all duration-300 hover:text-cyan-400">Kontak</a>
+                </div>
+                <button class="md:hidden text-cyan-400" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 z-40 bg-black/50 pt-20" id="mobile-menu">
+        <div class="glassmorphism m-4 rounded-2xl p-6 space-y-4">
+            <a href="#home" class="block text-cyan-400 hover:text-cyan-300">Home</a>
+            <a href="#about" class="block text-slate-100 hover:text-cyan-400">Tentang</a>
+            <a href="#education" class="block text-slate-100 hover:text-cyan-400">Pendidikan</a>
+            <a href="#projects" class="block text-slate-100 hover:text-cyan-400">Proyek</a>
+            <a href="#contact" class="block text-slate-100 hover:text-cyan-400">Kontak</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-10 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto text-center z-10">
+            <div class="mb-6 slide-in-up">
+                <div class="w-32 h-32 mx-auto mb-8 rounded-full glassmorphism p-1 animate-glow">
+                    <div class="w-full h-full rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                        <span class="text-5xl">👨‍💻</span>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 slide-in-up stagger-1">
+                <span class="gradient-text">Razy Shafa</span><br>
+                <span class="text-slate-100">Pratama</span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-cyan-300 mb-4 slide-in-up stagger-2">
+                Mahasiswa Sistem Informasi
+            </p>
+
+            <p class="text-base md:text-lg text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed slide-in-up stagger-3">
+                Mengintegrasikan teknologi dan manajemen bisnis untuk menjawab tantangan era digital. Fokus pada pembelajaran praktis dan inovasi berkelanjutan.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center slide-in-up stagger-4">
+                <a href="#projects" class="btn-gradient px-8 py-4 rounded-full text-white font-semibold">
+                    Lihat Karya Saya
+                </a>
+                <a href="#contact" class="glassmorphism px-8 py-4 rounded-full text-cyan-300 font-semibold hover:text-cyan-200">
+                    Hubungi Saya
+                </a>
+            </div>
+
+            <div class="mt-16 slide-in-up stagger-5">
+                <p class="text-slate-400 mb-6">Scroll ke bawah untuk mengenal lebih jauh</p>
+                <div class="animate-bounce">
+                    <svg class="w-6 h-6 mx-auto text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen flex items-center py-20 px-4">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12 gradient-text">Tentang Saya</h2>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glassmorphism-light rounded-2xl p-8 hover-lift">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-cyan-300 mb-2">Identitas Pribadi</h3>
+                            <p class="text-slate-300">
+                                Saya adalah Razy Shafa Pratama, lahir di Kabupaten Cilacap pada 22 Juli 2007. Berasal dari Desa Jenang, Majenang, saya memiliki ketertarikan mendalam terhadap teknologi dan bisnis modern.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-cyan-300 mb-2">Institusi</h3>
+                            <p class="text-slate-300">
+                                Mahasiswa <span class="text-cyan-400 font-semibold">Sistem Informasi</span> di Universitas Komputama dengan fokus pada integrasi teknologi dan manajemen bisnis.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-bold text-cyan-300 mb-2">Visi Utama</h3>
+                            <p class="text-slate-300">
+                                Menguasai keahlian teknis dan manajemen secara seimbang untuk menjawab tantangan era digital dengan komitmen lulus tepat waktu dan berkontribusi positif bagi industri.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="glassmorphism rounded-xl p-6 hover-lift">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">🎯</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-cyan-300 mb-2">Visi</h4>
+                                <p class="text-slate-300">Menjadi profesional yang menggabungkan keahlian teknis dengan kepemimpinan manajemen.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism rounded-xl p-6 hover-lift">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">💡</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-cyan-300 mb-2">Misi</h4>
+                                <p class="text-slate-300">Belajar berkelanjutan, berinovasi, dan menciptakan solusi digital yang bernilai.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism rounded-xl p-6 hover-lift">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">🚀</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-cyan-300 mb-2">Komitmen</h4>
+                                <p class="text-slate-300">Lulus tepat waktu dengan portofolio kuat dan pengalaman industri yang relevan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 grid md:grid-cols-3 gap-6">
+                <div class="glassmorphism rounded-xl p-6 text-center hover-lift">
+                    <div class="text-4xl font-bold gradient-text mb-2">2007</div>
+                    <p class="text-slate-300">Tahun Lahir</p>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 text-center hover-lift">
+                    <div class="text-4xl font-bold gradient-text mb-2">Cilacap</div>
+                    <p class="text-slate-300">Tempat Lahir</p>
+                </div>
+                <div class="glassmorphism rounded-xl p-6 text-center hover-lift">
+                    <div class="text-4xl font-bold gradient-text mb-2">Jenang</div>
+                    <p class="text-slate-300">Asal Desa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="min-h-screen flex items-center py-20 px-4">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12 gradient-text">Riwayat Pendidikan</h2>
+
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="hidden md:block absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-400 via-cyan-500 to-blue-600"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-12">
+                    <!-- Item 1 -->
+                    <div class="md:pl-24 relative">
+                        <div class="hidden md:block absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full border-4 border-blue-950 animate-glow"></div>
+                        <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-2xl font-bold text-cyan-300">SD Mulyasari 01</h3>
+                                <span class="text-sm text-cyan-400 font-semibold">2013 - 2019</span>
+                            </div>
+                            <p class="text-slate-300">Sekolah Dasar Dasar Pendidikan Dasar</p>
+                            <div class="mt-4 text-slate-400 text-sm">📍 Cilacap</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="md:pl-24 relative">
+                        <div class="hidden md:block absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full border-4 border-blue-950 animate-glow"></div>
+                        <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-2xl font-bold text-cyan-300">SMP 2 Majenang</h3>
+                                <span class="text-sm text-cyan-400 font-semibold">2019 - 2022</span>
+                            </div>
+                            <p class="text-slate-300">Sekolah Menengah Pertama</p>
+                            <div class="mt-4 text-slate-400 text-sm">📍 Majenang, Cilacap</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="md:pl-24 relative">
+                        <div class="hidden md:block absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full border-4 border-blue-950 animate-glow"></div>
+                        <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-2xl font-bold text-cyan-300">SMK Diponegoro Majenang</h3>
+                                <span class="text-sm text-cyan-400 font-semibold">2022 - 2025</span>
+                            </div>
+                            <p class="text-slate-300">Sekolah Menengah Kejuruan</p>
+                            <div class="mt-2 space-y-1">
+                                <div class="text-slate-300"><span class="text-cyan-400">Jurusan:</span> Desain Komunikasi Visual</div>
+                                <div class="text-slate-300"><span class="text-cyan-400">Fokus:</span> Desain grafis, fotografi, dan multimedia</div>
+                            </div>
+                            <div class="mt-4 text-slate-400 text-sm">📍 Majenang, Cilacap</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="md:pl-24 relative">
+                        <div class="hidden md:block absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full border-4 border-blue-950 animate-glow"></div>
+                        <div class="glassmorphism-light rounded-xl p-8 hover-lift border-2 border-cyan-400">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-2xl font-bold text-cyan-300">Universitas Komputama</h3>
+                                <span class="text-sm text-cyan-400 font-semibold">2024 - Sekarang</span>
+                            </div>
+                            <p class="text-slate-300">Program Studi Sistem Informasi</p>
+                            <div class="mt-2 space-y-1">
+                                <div class="text-slate-300"><span class="text-cyan-400">Fokus:</span> Teknologi dan Manajemen Bisnis</div>
+                                <div class="text-slate-300"><span class="text-cyan-400">Status:</span> Mahasiswa Aktif</div>
+                            </div>
+                            <div class="mt-4 text-slate-400 text-sm">📍 Online/Hybrid</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Timeline -->
+                <div class="md:hidden space-y-8">
+                    <div class="timeline-item glassmorphism-light rounded-xl p-6 hover-lift">
+                        <div class="flex justify-between mb-3">
+                            <h3 class="text-xl font-bold text-cyan-300">SD Mulyasari 01</h3>
+                            <span class="text-xs text-cyan-400">2013-2019</span>
+                        </div>
+                        <p class="text-slate-300 text-sm">Cilacap</p>
+                    </div>
+
+                    <div class="timeline-item glassmorphism-light rounded-xl p-6 hover-lift">
+                        <div class="flex justify-between mb-3">
+                            <h3 class="text-xl font-bold text-cyan-300">SMP 2 Majenang</h3>
+                            <span class="text-xs text-cyan-400">2019-2022</span>
+                        </div>
+                        <p class="text-slate-300 text-sm">Majenang, Cilacap</p>
+                    </div>
+
+                    <div class="timeline-item glassmorphism-light rounded-xl p-6 hover-lift">
+                        <div class="flex justify-between mb-3">
+                            <h3 class="text-xl font-bold text-cyan-300">SMK Diponegoro</h3>
+                            <span class="text-xs text-cyan-400">2022-2025</span>
+                        </div>
+                        <p class="text-slate-300 text-sm">Desain Komunikasi Visual</p>
+                    </div>
+
+                    <div class="timeline-item glassmorphism-light rounded-xl p-6 hover-lift border-2 border-cyan-400">
+                        <div class="flex justify-between mb-3">
+                            <h3 class="text-xl font-bold text-cyan-300">Univ. Komputama</h3>
+                            <span class="text-xs text-cyan-400">2024-Sekarang</span>
+                        </div>
+                        <p class="text-slate-300 text-sm">Sistem Informasi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="min-h-screen flex items-center py-20 px-4">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12 gradient-text">Proyek & Karya</h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Project Card 1 -->
+                <div class="project-card glassmorphism-light rounded-xl overflow-hidden hover-lift group">
+                    <div class="relative h-48 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/30 to-blue-600/30 group-hover:scale-110 transition-transform duration-300"></div>
+                        <div class="relative text-6xl">🌐</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-cyan-300 mb-3">Portofolio Google Sites</h3>
+                        <p class="text-slate-300 mb-6">Platform portofolio online yang menampilkan karya-karya terbaik dengan desain modern dan responsif.</p>
+                        <a href="#" class="btn-gradient px-6 py-2 rounded-lg text-white font-semibold inline-block text-sm">
+                            Kunjungi Situs
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card glassmorphism-light rounded-xl overflow-hidden hover-lift group">
+                    <div class="relative h-48 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/30 to-blue-600/30 group-hover:scale-110 transition-transform duration-300"></div>
+                        <div class="relative text-6xl">📸</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-cyan-300 mb-3">Panduan Fotografi</h3>
+                        <p class="text-slate-300 mb-6">Artikel komprehensif "Panduan Lengkap Fotografi untuk Pemula" yang dibagikan di platform Blogspot.</p>
+                        <a href="#" class="btn-gradient px-6 py-2 rounded-lg text-white font-semibold inline-block text-sm">
+                            Baca Artikel
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card glassmorphism-light rounded-xl overflow-hidden hover-lift group">
+                    <div class="relative h-48 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/30 to-blue-600/30 group-hover:scale-110 transition-transform duration-300"></div>
+                        <div class="relative text-6xl">🎨</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-cyan-300 mb-3">Desain Digital</h3>
+                        <p class="text-slate-300 mb-6">Koleksi desain grafis, UI/UX, dan visual komunikasi hasil karya dari SMK Diponegoro.</p>
+                        <a href="#" class="btn-gradient px-6 py-2 rounded-lg text-white font-semibold inline-block text-sm">
+                            Lihat Karya
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="project-card glassmorphism-light rounded-xl overflow-hidden hover-lift group">
+                    <div class="relative h-48 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/30 to-blue-600/30 group-hover:scale-110 transition-transform duration-300"></div>
+                        <div class="relative text-6xl">💻</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-cyan-300 mb-3">Proyek Teknologi</h3>
+                        <p class="text-slate-300 mb-6">Proyek-proyek teknologi dan sistem informasi yang dikembangkan selama perkuliahan dan magang.</p>
+                        <a href="#" class="btn-gradient px-6 py-2 rounded-lg text-white font-semibold inline-block text-sm">
+                            Pelajari Lebih
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="mt-20">
+                <h3 class="text-3xl font-bold text-cyan-300 mb-8">Keahlian</h3>
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="glassmorphism rounded-lg p-6 hover-lift">
+                        <h4 class="text-cyan-300 font-bold mb-3">Frontend</h4>
+                        <div class="space-y-2 text-slate-300 text-sm">
+                            <p>• HTML5 & CSS3</p>
+                            <p>• JavaScript</p>
+                            <p>• Tailwind CSS</p>
+                            <p>• Responsive Design</p>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism rounded-lg p-6 hover-lift">
+                        <h4 class="text-cyan-300 font-bold mb-3">Design</h4>
+                        <div class="space-y-2 text-slate-300 text-sm">
+                            <p>• UI/UX Design</p>
+                            <p>• Figma</p>
+                            <p>• Adobe Creative Suite</p>
+                            <p>• Fotografi</p>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism rounded-lg p-6 hover-lift">
+                        <h4 class="text-cyan-300 font-bold mb-3">Tools & Platform</h4>
+                        <div class="space-y-2 text-slate-300 text-sm">
+                            <p>• Git & GitHub</p>
+                            <p>• Google Suite</p>
+                            <p>• Canva</p>
+                            <p>• VS Code</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="min-h-screen flex items-center py-20 px-4">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-5xl md:text-6xl font-bold mb-12 gradient-text">Hubungi Saya</h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="text-3xl">📧</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-300">Email</h3>
+                                <p class="text-slate-300">razyshafapratama@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="text-3xl">📱</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-300">Media Sosial</h3>
+                                <p class="text-slate-300">@razyshafapratama</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="text-3xl">📍</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-300">Lokasi</h3>
+                                <p class="text-slate-300">Jenang, Majenang, Cilacap</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism-light rounded-xl p-8 hover-lift">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="text-3xl">🎓</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-300">Universitas</h3>
+                                <p class="text-slate-300">Universitas Komputama</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex flex-col justify-center gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-cyan-300 mb-6">Terhubung Dengan Saya</h3>
+                        <div class="space-y-4">
+                            <a href="https://instagram.com/razyshafapratama" target="_blank" class="btn-gradient w-full px-6 py-4 rounded-lg text-white font-semibold flex items-center justify-center gap-3 hover:shadow-lg">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 110-2.881 1.44 1.44 0 010 2.881z"/>
+                                </svg>
+                                Instagram
+                            </a>
+
+                            <a href="mailto:razyshafapratama@gmail.com" class="btn-gradient w-full px-6 py-4 rounded-lg text-white font-semibold flex items-center justify-center gap-3 hover:shadow-lg">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                                Email
+                            </a>
+
+                            <a href="#" class="btn-gradient w-full px-6 py-4 rounded-lg text-white font-semibold flex items-center justify-center gap-3 hover:shadow-lg">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 0H4C1.791 0 0 1.791 0 4v16c0 2.209 1.791 4 4 4h16c2.209 0 4-1.791 4-4V4c0-2.209-1.791-4-4-4zm-11 19H5v-11h4v11zm-2-12.553c-1.277 0-2.315-1.039-2.315-2.315S5.17 1.816 6.447 1.816c1.277 0 2.316 1.039 2.316 2.315s-1.039 2.316-2.316 2.316zm13 12.553h-4v-5.566c0-1.329-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.664h-4v-11h3.84v1.506h.054c.537-.986 1.849-2.025 3.807-2.025 4.08 0 4.833 2.686 4.833 6.179v5.34z"/>
+                                </svg>
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glassmorphism-light rounded-xl p-8 text-center">
+                        <p class="text-slate-300 mb-4">Atau langsung hubungi melalui kontak berikut:</p>
+                        <div class="space-y-3">
+                            <p class="font-semibold text-cyan-300">razyshafapratama@gmail.com</p>
+                            <p class="font-semibold text-cyan-300">@razyshafapratama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyan-400/20 py-12 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div>
+                    <h3 class="text-cyan-300 font-bold mb-4">Navigasi</h3>
+                    <ul class="space-y-2 text-slate-300">
+                        <li><a href="#home" class="hover:text-cyan-400 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-cyan-400 transition">Tentang</a></li>
+                        <li><a href="#education" class="hover:text-cyan-400 transition">Pendidikan</a></li>
+                        <li><a href="#projects" class="hover:text-cyan-400 transition">Proyek</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-cyan-300 font-bold mb-4">Proyek</h3>
+                    <ul class="space-y-2 text-slate-300">
+                        <li><a href="#" class="hover:text-cyan-400 transition">Portofolio</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Blog Fotografi</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Desain</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-cyan-300 font-bold mb-4">Kontak</h3>
+                    <ul class="space-y-2 text-slate-300">
+                        <li><a href="mailto:razyshafapratama@gmail.com" class="hover:text-cyan-400 transition">Email</a></li>
+                        <li><a href="https://instagram.com/razyshafapratama" class="hover:text-cyan-400 transition">Instagram</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Telepon</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-cyan-400/10 pt-8 text-center text-slate-400">
+                <p class="mb-4">&copy; 2026 Razy Shafa Pratama. All rights reserved.</p>
+                <p class="text-sm">
+                    Dirancang dengan <span class="text-cyan-400">💙</span> menggunakan HTML5, Tailwind CSS, dan JavaScript
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Inisialisasi GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar color change on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-blue-950/80');
+            } else {
+                navbar.classList.remove('bg-blue-950/80');
+            }
+        });
+
+        // Update active nav link
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+
+        // Smooth scroll behavior for older browsers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // GSAP Animations
+        gsap.utils.toArray('.hover-lift').forEach(element => {
+            ScrollTrigger.create({
+                trigger: element,
+                onEnter: () => {
+                    gsap.from(element, {
+                        opacity: 0,
+                        y: 30,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        });
+
+        // Project card animations
+        gsap.utils.toArray('.project-card').forEach((card, index) => {
+            ScrollTrigger.create({
+                trigger: card,
+                onEnter: () => {
+                    gsap.from(card, {
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.6,
+                        delay: index * 0.1,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on hero background
+        gsap.to('.absolute', {
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            },
+            y: 200,
+            duration: 1
+        });
+
+        // Text reveal animation
+        const textElements = document.querySelectorAll('.slide-in-up');
+        textElements.forEach(element => {
+            if (element.style.animationDelay === '') {
+                element.style.opacity = '0';
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2) {
+            let current = 0;
+            const increment = target / (duration * 60);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 1000 / 60);
+        }
+
+        // Button click animations
+        document.querySelectorAll('.btn-gradient').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    overwrite: 'auto'
+                });
+            });
+
+            btn.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.3,
+                    overwrite: 'auto'
+                });
+            });
+        });
+
+        // Load animations on page load
+        window.addEventListener('load', () => {
+            // Initial animation for hero section
+            gsap.from('#home h1', {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('#home p', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 0.2,
+                ease: 'power3.out'
+            });
+
+            gsap.from('#home .flex', {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                delay: 0.4,
+                ease: 'power3.out'
+            });
+        });
+
+        // Performance optimization - Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('opacity-0');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+        }
+
+        console.log('✨ Portfolio loaded successfully!');
+    </script>
+</body>
+</html>
